@@ -30,3 +30,5 @@ yarn-error.log
 /public/storage/
 /storage/*.key
 .env
+ai-ml/datasets/embeddings/*.txt
+ai-ml/datasets/skill2vec/*.csv
