@@ -1,122 +1,245 @@
-<p align="center">
-  <img src="https://placehold.co/800x200/007bff/ffffff?text=EduCareer" alt="EduCareer Logo" width="800" style="border-radius: 10px;">
-</p>
+# EduCareer
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white" alt="Laravel">
-  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
-  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind">
-  <img src="https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge" alt="License">
-  <a href="https://github.com/mfarrukhjaved-381/educareer">
-    <img src="https://img.shields.io/github/stars/mfarrukhjaved-381/educareer?style=for-the-badge&color=brightgreen" alt="GitHub Stars">
-  </a>
-</p>
+A full-stack AI-powered career guidance platform bridging the gap between CVs and dream careers through intelligent skill extraction and mapping.
 
-<h1 align="center">EduCareer</h1>
-
-> ⭐ The ultimate AI-powered career guidance platform bridging the gap between CVs and dream careers.
-
-<p align="center">
-  Developed by <br>
-  <img src="https://github.com/mfarrukhjaved-381.png?size=80" alt="Muhammad Farrukh Javed" style="border-radius: 50%;"><br>
-  <strong>Muhammad Farrukh Javed</strong>
-</p>
+[![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com)
+[![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge)](LICENSE)
 
 ---
 
-## 🎯 Scope, Honestly
+## Overview
 
-EduCareer is a robust platform that takes a user's CV, extracts their skills using machine learning, and maps them to tailored career paths, jobs, and courses. It handles authentication, data visualization, and AI embeddings out of the box. However, it **DOES NOT** automatically apply to jobs for you, nor does it guarantee employment. It is an analytical guidance tool designed to highlight skill gaps and suggest the next best steps in your professional journey. Expect an ecosystem split into a Laravel-powered frontend/backend and a Python-powered AI/ML engine that require separate environments.
+EduCareer is an intelligent career guidance platform designed for job seekers, career advisors, and developers. It solves the problem of generic career advice by leveraging Natural Language Processing (NLP) to extract actual skills from a user's CV and map them against real-world industry requirements. 
 
-> **Status:** Active & Open Source. Ready for developers to explore and deploy.
+By comparing a user's current skill set to the requirements of their target role, the platform provides data-driven career path recommendations, identifies specific skill gaps, and suggests targeted courses and jobs to bridge those gaps.
 
 ---
 
-## ⚡ Quick Start
+## Features
 
-Setting up EduCareer involves running both the Laravel backend and the Python ML environment.
+### Core Functionality
+- **Smart CV Analysis:** Extract technical and soft skills directly from uploaded resumes using NLP.
+- **Career Path Mapping:** AI-driven recommendations matching user profiles to viable career trajectories.
+- **Skill Gap Visualization:** Dashboards highlighting missing skills required for target jobs.
 
-<details>
-<summary><b>Option 1: Terminal Setup (Recommended)</b></summary>
+### Recommendations
+- **Dynamic Job Matching:** Recommends specific roles based on vector similarity (`skill2vec`).
+- **Targeted Upskilling:** Suggests courses tailored to bridge individual skill gaps.
 
-### 1. Laravel Application
+### Administration & Security
+- **Role-Based Access Control (RBAC):** Distinct workflows for admins, career advisors, and standard users.
+- **Authentication:** Secure login and registration.
+
+### Developer Tooling
+- **Customizable ML Engine:** Swap out the default embedding models for industry-specific fine-tuning.
+
+---
+
+## Scope and Limitations
+
+### What it does
+EduCareer successfully parses CVs, extracts skills, generates vector embeddings for those skills, and compares them against a predefined dataset of job roles and courses to generate personalized recommendations. It provides a complete web interface for users to interact with these insights.
+
+### What it does not do
+- **It does not automatically apply to jobs.**
+- **It does not scrape live job boards.** Real-time job board integration requires connecting a third-party API (like LinkedIn or Indeed) to the existing endpoints.
+- **It does not guarantee employment.** The platform is strictly an analytical guidance tool.
+
+### Current Status
+**Development / Beta** - The core functionality and ML pipelines are operational, but the project is actively evolving. 
+
+---
+
+## Tech Stack
+
+### Frontend
+- Blade Templating
+- Tailwind CSS
+- Alpine.js / Vue.js
+- Vite
+
+### Backend
+- Laravel 12 (PHP 8.2)
+
+### Database
+- MySQL / SQLite
+
+### AI & Machine Learning
+- Python 3.x
+- Gensim
+- Scikit-Learn
+- Pandas
+
+---
+
+## Architecture
+
+```mermaid
+flowchart TD
+    User([User Browser]) -->|HTTP / AJAX| Laravel[Laravel Backend]
+    
+    subgraph Web Application
+        Laravel -->|Read/Write| DB[(MySQL Database)]
+        Laravel -->|Auth & Views| Frontend[Blade / Tailwind]
+    end
+
+    subgraph AI Analytics Subsystem
+        Laravel -->|API / Subprocess| PythonEngine[Python AI/ML Engine]
+        PythonEngine -->|skill2vec NLP| Models[(Local Models)]
+        PythonEngine -->|Vector Search| Datasets[(Skill Datasets)]
+    end
+```
+
+---
+
+## Requirements
+
+- **PHP** >= 8.2
+- **Composer** >= 2.x
+- **Node.js** >= 18 and **npm** >= 9
+- **Python** >= 3.9
+- **MySQL** / **MariaDB** (or SQLite for local testing)
+
+---
+
+## Quick Start
+
+### 1. Clone the repository
 ```bash
-# Clone the repository
 git clone https://github.com/mfarrukhjaved-381/educareer.git
-cd educareer/frontend-backend
+cd educareer
+```
 
-# Install dependencies
+### 2. Setup the Web Application (Laravel)
+```bash
+cd frontend-backend
+
+# Install PHP and Node dependencies
 composer install
 npm install
 
-# Setup environment
+# Configure environment variables
 cp .env.example .env
 php artisan key:generate
+
+# Run database migrations
 php artisan migrate
 
-# Start the servers
+# Start the application
 php artisan serve & npm run dev
 ```
 
-### 2. AI & ML Scripts
+### 3. Setup the AI/ML Engine (Python)
 ```bash
-# Open a new terminal and navigate to the AI/ML directory
+# Open a new terminal and navigate to the ML directory
 cd ../ai-ml
 
-# Setup Python environment
+# Create and activate a virtual environment
 python3 -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install required ML packages
+pip install pandas scikit-learn gensim numpy
+```
+
+---
+
+## Configuration
+
+Create a `.env` file in the `frontend-backend` directory based on `.env.example`.
+
+| Variable | Required | Description | Example |
+| -------- | -------- | ----------- | ------- |
+| `APP_ENV` | Yes | Application environment | `local` |
+| `DB_CONNECTION` | Yes | Database driver | `mysql` |
+| `DB_DATABASE` | Yes | Database name or absolute SQLite path | `educareer` |
+| `GOOGLE_CLIENT_ID` | No | OAuth Client ID for Google Login | `123...apps.googleusercontent.com` |
+| `GOOGLE_CLIENT_SECRET` | No | OAuth Client Secret for Google Login | `GOCSPX-...` |
+
+---
+
+## Usage
+
+### Running ML Scripts Manually
+While the Laravel backend handles standard user interactions, developers can manually run or retrain the machine learning pipelines:
+
+```bash
+cd ai-ml
 source venv/bin/activate
 
-# Install dependencies
-pip install pandas scikit-learn gensim numpy
-
-# Run the desired scripts (e.g., job recommendations)
+# Generate job recommendations based on a sample input
 python scripts/job_recommendations.py
+
+# Retrain the skill2vec model with updated datasets
+python scripts/train_skill2vec.py
 ```
-</details>
-
-<details>
-<summary><b>Option 2: Direct Download</b></summary>
-
-1. Download the repository as a ZIP file from GitHub.
-2. Extract the contents to your local machine.
-3. Follow the same terminal instructions above within the extracted folder.
-</details>
 
 ---
 
-## 🤔 Why This Exists
+## Development
 
-**The Problem**: Job seekers often don't know what skills they lack for their desired roles, and career advisors struggle to provide data-driven recommendations at scale. Existing tools are either too simplistic or locked behind enterprise paywalls.
+To format and work on the Laravel application locally:
 
-**The Fix**: EduCareer provides an open-source, full-stack solution that leverages actual NLP and machine learning embeddings (`skill2vec`) to compare a user's CV against industry requirements. It democratizes advanced career analytics, making personalized guidance accessible to everyone.
+```bash
+# Compile frontend assets for development
+npm run dev
 
-> [!TIP]  
-> Run the `train_skill2vec.py` script with your own specialized dataset to generate custom skill embeddings tailored to specific industries (e.g., healthcare or finance)!
+# Build frontend assets for production
+npm run build
 
----
-
-## 🛠 Customizing What's Produced
-
-EduCareer is built for extensibility:
-- **Swap the ML Models:** You can replace the default Gensim `skill2vec` model in `ai-ml/models/` with your own fine-tuned NLP models to improve extraction accuracy.
-- **Extend the Dashboards:** The Laravel + Tailwind CSS frontend is easily modifiable. Add new Alpine.js components or Vite integrations in `resources/views/` to create custom reporting visualizations.
-- **API Integrations:** The Laravel backend exposes endpoints that allow you to connect third-party job board APIs (like LinkedIn or Indeed) directly into the recommendation engine.
-- **Database Scalability:** By default, it uses SQLite/MySQL, but you can configure `.env` to scale with PostgreSQL or integrate Redis for faster model caching.
+# Clear application cache
+php artisan optimize:clear
+```
 
 ---
 
-## 🤝 Contributing
+## Testing
 
-We welcome community contributions to make EduCareer even better! 
+Run the automated test suite for the Laravel backend:
+
+```bash
+cd frontend-backend
+
+# Run Unit & Feature tests
+php artisan test
+```
+
+---
+
+## Roadmap
+
+- [x] User Authentication & Dashboard
+- [x] CV Parsing & NLP Skill Extraction
+- [x] Job & Course Recommendation Engine
+- [ ] Implement Redis caching for faster ML model loading
+- [ ] Build standalone REST API for mobile app integration
+- [ ] Implement OAuth integrations (LinkedIn, Google)
+
+---
+
+## Contributing
+
+Contributions are welcome.
+
+Please ensure you follow standard Laravel and Python coding conventions. 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'feat: Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
+3. Ensure all tests pass (`php artisan test`)
+4. Commit your changes
 5. Open a Pull Request
 
 ---
 
-## 📝 License
+## License
 
-Distributed under the MIT License. See `LICENSE` for more information.
+This project is licensed under the MIT License.
+See [LICENSE](LICENSE) for details.
+
+---
+
+## Maintainers
+
+**Muhammad Farrukh Javed**
+- GitHub: [https://github.com/mfarrukhjaved-381](https://github.com/mfarrukhjaved-381)
+- Portfolio: [https://mfarrukhjaved.com/](https://mfarrukhjaved.com/)
